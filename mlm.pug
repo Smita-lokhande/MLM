@@ -1,0 +1,696 @@
+doctype html
+html(lang="en")
+  head 
+    title Calendaree || Multi-level Marketing 
+    meta(charset='UTF-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    link(href='/static/css/mlm.css' rel='stylesheet' type='text/css')
+    link(href='/static/css/style.css' rel='stylesheet' type='text/css')
+    link(href=`/static/css/${orgcolor}.css` rel='stylesheet' type='text/css')
+    link(href='/static/image/calen2.jpg' rel='stylesheet' type='text/image')
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="images/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="images/png" sizes="16x16" href="/images/favicon-16x16.png">
+    <link rel="icon" type="images/png" sizes="192x192" href="/images/favicon-192x192.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    body(onload="getlogomlm();")
+        div.container
+            div.content
+                div.header
+                    div.logo
+                        //-a(href="https://www.calendaree.com/")
+                        table 
+                            tr 
+                                td(width="50%" style="text-align:left")
+                                    img(src="/static/image/Calendaree-logo-Original.png")
+                                td(align="center" style="text-align:left; width=100%; vertical-align: middle;")
+                                    div(id="logupload"  style="width:400px; height:80%; !important; margin-left:-70px;") 
+                                    
+                                td
+                                    <b>#{username}</b><br>
+                                    <a href="/1/menu" class="loginlink">Main</a>&nbsp;&nbsp;
+                                    <a href="/1/login" class="loginlink">Logout</a>
+                                    br
+                                    button.metal.linear(onclick='sendmessage1()' class="wbutton" ) Support On <i class="fa fa-whatsapp" style="font-size:24px;">
+                        
+                        div.loader#loader
+                            table(align='center') 
+                                tr(align='center') 
+                                    td(align='center')
+                                        | Loding.....     
+                        div.loader#loader2
+                            table(align='center') 
+                                tr(align='center') 
+                                    td(align='center')
+                                        | Saving.....              
+                        div.loader#loader3
+                            table(align='center') 
+                                tr(align='center') 
+                                    td(align='center')
+                                        | Delete.....                                                            
+                        div(width="100%").loader#divusermsg
+                            table(width="100%" align='center' style="margin:0px; padding:0px;") 
+                                tr(width="100%" align='center' style="margin:0px; padding:0px;") 
+                                    td(align='center' style="width:100%; !important;")
+                                        div(width="100%" id="usermsg12" style="color:rgb(93, 194, 222)")
+                        div#mlmsubscription 
+                            table(align="center" )    
+                                    tr 
+                                        if(admin==0 && started==0 )
+                                            td 
+                                                button(onclick ="subscribem();") Get Subscription   
+                        div#morginfo
+                            table(align="center" cellspacing="0" cellpadding="0")
+                                tr 
+                                    td 
+                                        if(admin==1 && started==0 && substatus==0)
+                                            button(onclick="orginfom();" class="mainbutton") <img src="/static/image/updateorganization.jpeg"  style="width:70px; "/> <br><p> Organization Info <br></p> 
+                        div#mainmenu 
+                            table(align="center" cellspacing="0" cellpadding="0")  
+                                if((admin==1 && started==1 && substatus==1))
+                                    tr 
+                                        td
+                                            if((admin==1 && started==1 ))
+                                            <img src="/static/image/mlm.png" onclick="mlmtreepage();"  style="width:90px; "/> <br><p onclick="mlmtreepage();" > M.L.M  </p> 
+                                        
+                                        td 
+                                            if(admin==1 && started==1 )
+                                            <img src="/static/image/settings.jpeg" onclick="planinfo();" style="width:70px; "/> <br><p onclick="planinfo();"> Plan</p> 
+                                    tr
+                                        td 
+                                            if(admin==1 && started==1 )            
+                                            <img src="/static/image/staffmanagement.png" onclick="managemember();" style="width:70px; "/> <br><p onclick="managemember();"> Manage Member</p>
+                                    
+                                        
+                                        td 
+                                                if(admin==1 && started==1 )
+                                                <img src="/static/image/member_report.png"  onclick="memberreportinfo();" style="width:70px; "/> <br><p onclick="memberreportinfo();"> MLM Report</p> 
+                                    
+                                    tr    
+                                        td 
+                                            if(admin==1 && started==1 )    
+                                            <img src="/static/image/updateorganization.jpeg" onclick="updateorginfo();" style="width:70px; "/> <br><p onclick="updateorginfo();"> Update Organization <br> Info</p>
+                                
+                                    
+                                        td    
+                                            if(admin==1 && started==1)
+                                            <img src="/static/image/Account status.jpeg" onclick="acountstatusmlm();"   style="width:70px; "/> <br><p onclick="acountstatusmlm();" > Account Status</p>
+                            
+                                if(admin === 1 && substatus == 0 &&  started == 1)
+                                    tr 
+                                        td 
+                                            h1 You have reached the end of your subscription for the  M.L.M  Module
+                                    tr
+                                        td 
+                                            button.metal.linear(onclick='sendmessage2()') Sales On <i class="fa fa-whatsapp" style="font-size:24px;">
+                        div.model12#org
+                            table(align="center" cellspacing="0" cellpadding="0")
+                                        tr  
+                                            td
+                                                h1 Organization Information 
+                                        
+                                        tr
+                                            td
+                                                label Organization Name
+                                                input(type='text' id='orgname' placeholder='Organization Name' maxlength='40' size='40' required)
+                                        tr
+                                            td
+                                                label Address 
+                                                input(type='text' id='orgaddress' placeholder='Address' maxlength='40' size='40' required)        
+                                        tr
+                                            td
+                                                label Address
+                                                input(type='text' id='orgaddress1' placeholder='Address' maxlength='40' size='40' required)        
+                                        tr
+                                            td
+                                                label City
+                                                input(type='text' id='orgcity' placeholder='City' maxlength='40' size='40' required)
+                                        tr
+                                            td
+                                                label State
+                                                input(type='text' id='orgstate' placeholder='State' maxlength='40' size='40' required)
+                                        tr
+                                            td
+                                                label Email
+                                                input(type='email' id='orgemail' placeholder='Email' maxlength='40' size='40' required)
+                                        tr
+                                            td
+                                                label Mobile
+                                                input(type='text' id='phoneno' placeholder='Mobile' maxlength='10' size='40' required)
+                            br
+                            table(align="center")
+                                        tr(align="center")
+                                            td 
+                                                button(onclick='saveorginfo();' width='95px' ) Save Organazation
+                                            td  
+                                                button(onclick="cancelorgdb();"  ) X   
+                        div.model12#acountstatusinfo
+                            table(class="tblbackcolor" align="center" width="50%") 
+                                tr 
+                                    td
+                                        table(align="center")
+                                            tr(align="center") 
+                                                td(align="center") 
+                                                    h1 Account Status
+                                                td 
+                                                    button(onclick="cancelaccountstatuspagemlm();" ) X
+                                        table(align="center")
+                                            tr(align="center")
+                                                td(align="center")
+                                                        br
+                                                        table(align="center")
+                                                            tr(align="center")
+                                                                td.tblclass 
+                                                                    label(for="") Account state
+                                                                    input(type='text' maxtlength='10' size='10' id='state' disabled='disabled')
+                                                                td.tblclass 
+                                                                    label(for="") Day's left
+                                                                    input(type='text' maxlength='10' size='10' id='valid' disabled='disabled')
+                                                        table 
+                                                            tr.tblclass
+                                                                td.tblclass 
+                                                                    label Start Date 
+                                                                    input(type='text' maxtlength='10' size='10' id='stdate' disabled='disabled') 
+                                                                td.tblclass 
+                                                                    label End Date 
+                                                                    input(type='text' maxtlength='10' size='10' id='eddate' disabled='disabled')
+                                                            //- tr.tblclass    
+                                                            //-     td.tblclass 
+                                                            //-         label.user(for="" id='datelable') Quota
+                                                            //-         input(type='text' maxtlength='10' size='10' id='quota' disabled='disabled')     
+                                                            //-     td.tblclass 
+                                                            //-         label.user(for="" id='datelable') Used Quota
+                                                            //-         input(type='text' maxtlength='10' size='10' id='usedquota' disabled='disabled')
+                        div.model12#updateorgnization
+                            table(class="tblbackcolor" align="center" width="50%") 
+                                tr 
+                                    td
+                                        table(width="30%" cellspacing="0" cellpadding="0" align ='center')
+                                            tr(align="center")  
+                                                td(align="center") 
+                                                    h1 Update Organization 
+                                                td  
+                                                    button(onclick="cancelupdateorginfo();"  ) X
+                                        table(align="center" cellspacing="0" cellpadding="0")
+                                            tr
+                                                td
+                                                    label Organization Name
+                                                    input(type='text' id='organizationname' placeholder='Organization Name' maxlength='40' size='40' required)
+                                            tr
+                                                td
+                                                    label Address 
+                                                    input(type='text' id='uaddress' placeholder='Address' maxlength='40' size='40' required)        
+                                            tr
+                                                td
+                                                    label Address 2
+                                                    input(type='text' id='uaddress1' placeholder='Address' maxlength='40' size='40' required)        
+                                            tr
+                                                td
+                                                    label City
+                                                    input(type='text' id='ucity' placeholder='City' maxlength='40' size='40' required)
+                                            tr
+                                                td
+                                                    label State
+                                                    input(type='text' id='ustate' placeholder='State' maxlength='40' size='40' required)
+                                            tr
+                                                td
+                                                    label Email
+                                                    input(type='text' id='uemail' placeholder='Email' maxlength='40' size='40' required)
+                                            tr
+                                                td
+                                                    label Mobile
+                                                    input(type='text' id='orgmobileno' placeholder='Mobile' maxlength='10' size='10' required)
+                                        br
+                                        table(align="center")    
+                                            tr
+                                                td 
+                                                    button(onclick='updateorg()' width='95px' ) Save Organization
+
+                                        table(align="center") 
+                                            tr.tblflex
+                                                td
+                                                    //- label.user( id="datelable" ) Color
+                                                    //- br
+                                                    select(type="text" id="csscolor" required style="width:150px;")   
+                                                        //- option(value="bluecolor") Select Color
+                                                        //- option(value="pinkcolor") Pink Color
+                                                        //- option(value="graycolor") Gray Color
+                                                        //- option(value="bluecolor") Blue Color
+                                                        //- option(value="browncolor") Brown Color
+                                                    td(align="center")
+                                                        button(onclick="orgcolormlm();" ) Add Color
+                                        table(align="center") 
+                                            tr
+                                                
+                                                td(colspan="2")
+                                                    input(type="file" id="uploadlogo" placeholder=""  )   
+                                                td
+                                                    button(onclick="mlmlogou();") Logo upload       
+                        div.model12#mlmtreeinformation
+                                table(align="center" width="50%") 
+                                    tr 
+                                        td
+                                            table(align="center")
+                                                tr(align="center") 
+                                                    td(align="center") 
+                                                        h1 MLM TREES
+                                                tr(align="center")
+                                                    td(align="center")
+                                                        input(type="text" id='searchmemberlevel' placeholder='mobile number')
+                                                    td 
+                                                        button(onclick='showansmemberlevel();') Search
+                                                    td 
+                                                        button(onclick='closemlmtree();') Close    
+                                    tr(align="center") 
+                                        table(align="center")             
+                                                tr(align="center") 
+                                                    div(align="center")#showmembereportree 
+                                                    div#treeContainer            
+                                                            
+                            
+                        div.model12#multilevelmarketingpage 
+                            table(width="100%" cellspacing="0" cellpadding="0"   style="vertical-align: top; height: 00px;")  
+                                tr(align="center")
+                                    td(style="vertical-align: top;")
+                                        table(cellspacing="0" cellpadding="0"   style="vertical-align: top;") 
+                                            tr(align="center")
+                                                td(align="center")
+                                                    select(id="showplan2"  required style="width: 230px; height: 33px;")  
+                                                td(align="center")
+                                                    button( onclick="showplaninformation();" ) Show Plan
+                                            tr(align="center")
+                                                table(align="center")
+                                                    tr(align="center")
+                                                        td(align="center")
+                                                            div#showmemberinformation         
+                            div.modul12#addmemberinfo 
+                                table(align="center" cellspacing="0" cellpadding="0")
+                                    tr(align="center")
+                                        td(align="center")
+                                            <dialog id="favdialogaddmember" class="digclass" class="addm">
+                                                table(align="center" cellspacing="0" cellpadding="0") 
+                                                    tr(align="center") 
+                                                        td(class="fr1" style="vertical-align: top;") 
+                                                            button(onclick="closemember();"  ) X
+                                                    tr
+                                                        div#addperson
+                                                            table.tblclass(align="center" cellspacing="0" cellpadding="0") 
+                                                                tr.tblclass(align="center")  
+                                                                    table(align="center") 
+                                                                        tr(align="center") 
+                                                                            td(align="center")
+                                                                                label name
+                                                                                input(type='text' id='membername' placeholder='name' maxlength='40' size='20' required)
+                                                                        tr(align="center") 
+                                                                            td(align="center") 
+                                                                                label Mobile Number
+                                                                                input(type='text' id='membermobileno' placeholder='mobile number' maxlength='40' size='20' required)
+                                    
+                                            </dialog>  
+                            div.modul12#plandetails 
+                                table(align="center" cellspacing="0" cellpadding="0")
+                                    tr(align="center")
+                                        td(align="center")
+                                            <dialog id="favdialogplandetains" class="digclass">
+                                                table(align="center" cellspacing="0" cellpadding="0") 
+                                                    tr(align="center") 
+                                                        td(class="fr1" style="vertical-align: top;") 
+                                                            button(onclick="closeplandetails();"  ) X
+                                                    tr(align="center") 
+                                                        div#planinfo
+                                                            table.tblclass(align="center" cellspacing="0" cellpadding="0") 
+                                                                tr.tblclass(align="center")  
+                                                                    td
+                                                                            //- td
+                                                                            //-     label.user() Level
+                                                                            //-     input(type='text' id='addlevel' placeholder='Level' maxlength='40' size='20' required)
+                                                                            //- td 
+                                                                            //-     button(onclick='savelevel();') Save Level
+                                            </dialog>                
+
+                                
+                                        table(align="center" calss='abc')    
+                                            tr(align="center")
+                                                td(align="center" style='height: 100%;')  
+                                                    
+                            div.model12#setting
+                                table(align="center")
+                                    tr(align="center") 
+                                        td(align="center")
+                                            table(align="center" cellspacing="0" cellpadding="0")
+                                                tr(align="center") 
+                                                    td(align="center") 
+                                                        h1 Manage Plan  
+                                                    td(align="center" )
+                                                        button(onclick="closesetting();"  ) X    
+                                            table(align="center" cellspacing="0" cellpadding="0"  class="tblbackcolor")
+                                                tr(align="center") 
+                                                    td(align="center") 
+                                                        table.tblclass(align="center" cellspacing="0" cellpadding="0"   class="tblbackcolor") 
+                                                            tr.tblclass(style="margin:0px; padding:0px;") 
+                                                                table(align="center") 
+                                                                    td.tblclass 
+                                                                        input(type="text" id="newplanadd" placeholder="Plan" maxlength="10" size="10")
+                                                                    td(align='center') 
+                                                                        button(id="addmsbtn" onclick="saveplanname();"   maxlength="15" size="15" ) Add
+                                                            tr 
+                                                                
+                                                                    td(align="center")
+                                                                        select(id="showplan1"  required style="width: 230px; height: 33px;")  
+                                                                    td(align="center")
+                                                                        button( onclick="showplaninfo();" ) Show Plan
+                                            table     
+                                                tr(align="center") 
+                                                    br
+                                                    br
+                                                    table(align="center" cellspacing="0" cellpadding="0") 
+                                                        tr
+                                                            td(align="center" )
+                                                                table(align="center" class="tblbackcolor" cellspacing="0" cellpadding="0")
+                                                                    tr(align="center" )
+                                                                        td(align="center" ) Levels 
+                                                                        td() Share
+                                                                        td() Set Share
+                                                                    tr(align="center") 
+                                                                        td( value="levelfirst" ) 
+                                                                            select(type="text"  id="lavelvalues" placeholder='Position' required style="width:150px;")
+                                                                                option(value="select") Select Level
+                                                                                option(value='1') Level First 
+                                                                                option(value='2') Level Second 
+                                                                                option(value='3') Level Third
+                                                                                option(value='4') Level Fourth
+                                                                                option(value='5') Level Fifth
+                                                                                option(value='6') Level Sixth
+                                                                                option(value='7') Level Seventh
+                                                                                option(value='8') Level Eighth
+                                                                                option(value='9') Level Ninth
+                                                                                option(value='10') Level Tenth
+                                                                        td()
+                                                                            input(type="text" id="share")
+                                                                        td()
+                                                                            button(onclick="savelevelvalues('levelfirst');" ) Set 
+                                                    table                 
+                                                        tr(align="center")
+                                                            table(align="center")
+                                                                tr(align="center")
+                                                                    td(align="center")
+                                                                        div#showplanreport                                                                       
+                                                                        
+                            div.model12#memberreportinformation
+                                table(align="center" cellspacing="0" cellpadding="0")
+                                    tr(align="center") 
+                                        td(align="center") 
+                                            h1  Report  
+                                        td 
+                                            button(onclick="closemreport();"  ) X    
+                                table(align="center" cellspacing="0" cellpadding="0") 
+                                    tr(align="center") 
+                                        table(align="center" cellspacing="0" cellpadding="0")
+                                            tr(align="center")
+                                                td(align="center")
+                                                    button(onclick="payoutreportsearch();" ) PayOut Report 
+                                                td(align="center")
+                                                    button(onclick="currontpayoitreport();")  Pending PayOut        
+                                    tr(align="center")  
+                                        table(align="center" cellspacing="0" cellpadding="0")
+                                            tr(align="center")   
+                                                td(align="center")
+                                                    label Member Number
+                                                    br   
+                                                    input(type="text" id="membernumber" placeholder="Member Number" maxsize="10" hight="5" style="width:150px;")   
+                                                    
+                                                td.tblclass
+                                                    label From 
+                                                    <br>
+                                                    input(type="date" id="fromdatereport" placeholder='start date' )
+                                                td.tblclass
+                                                    label To 
+                                                    br
+                                                    input(type="date" id="todatereport" placeholder='start date' )
+                                    tr(align="center")
+                                        table(align="center")
+                                            tr(align="center")  
+                                                td 
+                                                    button(onclick="downloadreport();" id="downloadreport" ) Download    
+                                                td 
+                                                    button(onclick="downloadpayoutreport();" id="downloadpayoutreport" ) Download       
+                                                
+                                                td(class="choosf")
+                                                td(id='uploadbcsv')
+                                                    input(type="file" id="uploadbcsvf" placeholder="choose file")  
+                                                    button(onclick="fileuploadcsv();"  ) Upload Bank CSV        
+                                    tr(align="center")
+                                        table(align="center" id="downloadpr")
+                                            tr(align="center")
+                                                td(align="center")
+                                                    div#filterdatereportshow                  
+                                                                    
+                            div.model12#managem
+                                table(align="center" cellspacing="0" cellpadding="0")
+                                    tr(align="center") 
+                                        td(align="center") 
+                                            h1 Manage Member  
+                                        td 
+                                            button(onclick="closemember();"  ) X      
+                                table.tblclass(align="center" cellspacing="0" cellpadding="0")
+                                    tr.tblclass(align="center") 
+                                        table.tblclass(align="center" style='width: 100%;' cellspacing="0" cellpadding="0" class="tblbackcolor")         
+                                            tr.tblclass 
+                                                td.tblclass
+                                                
+                                                    table(align="center" cellspacing="0" cellpadding="0")
+                                                        tr(align="center")
+                                                            td(align="center" )
+                                                                fieldset(style='border: thin solid gray; border-radius: 3px; padding: 0px; margin:0px;')
+                                                                    table(align="center" cellspacing="0" cellpadding="0" )
+                                                                        tr(align="center")
+                                                                            td(align="center")
+                                                                                label Reference Number
+                                                                                br   
+                                                                                input(type="text" id="refrenceno" placeholder="Reference Number" maxsize="10" hight="5" style="width:150px;")   
+                                                                            td(align="center") 
+                                                                                button(onclick="searcrefrence();"  style='margin-top: 25px ;') Search
+                                                                        tr(align="center")
+                                                                            td.tblclass(align="center")
+                                                                                    label Reference Name
+                                                                                    br
+                                                                                    input(type="text" id="refrencename" placeholder="Reference Name" style="width:150px;" maxsize="15" hight="5" readonly)
+                                                                            td.tblclass(align="center")
+                                                                                    label Reference Email
+                                                                                    br
+                                                                                    input(type="text" id="refrenceemail" placeholder="Reference Email" style="width:150px;" maxsize="15" hight="5" )
+                                                                            td
+                                                                                    input(id='userid2' type="hiddenbox" class="displaytd")    
+                                                                            td
+                                                                                    input(id='memberid' type="hiddenbox1" class="displaytd")                         
+                                                                table(align="center" cellspacing="0" cellpadding="0") 
+                                                                    tr(align="center")
+                                                                        table(align="center" cellspacing="0" cellpadding="0") 
+                                                                            tr(align="center")
+                                                                                table(align="center" cellspacing="0" cellpadding="0") 
+                                                                                    tr(align="center") 
+                                                                                        td.tblclass(align="center")
+                                                                                            label Mobile Number
+                                                                                            br
+                                                                                            input(type="text" id="membernumber1" placeholder="mobile number" style="width:150px;" maxsize="15" hight="5")
+                                                                                        td.tblclass(align="center")
+                                                                                            button(onclick="serchmember();" style='margin-top: 25px ;' ) Search   
+                                                                                       
+                                                                                    tr(align="center")
+                                                                                        table(align="center" cellspacing="0" cellpadding="0" style='border: thin solid gray; border-radius: 3px; padding: 0px; margin:0px;')  
+                                                                                            tr(align="center")    
+                                                                                                td.tblclass(align="center")
+                                                                                                    
+                                                                                                        table
+                                                                                                            tr
+                                                                                                                td 
+                                                                                                                    table 
+                                                                                                                        tr 
+                                                                                                                            td.tblclass(align="center")  
+                                                                                                                                label Invoice No
+                                                                                                                                br    
+                                                                                                                                input(type="text" id="invoiceno" placeholder="Invoice No" maxsize="10" hight="5" style="width:150px;")
+                                                                                                                            td.tblclass(align="center")    
+                                                                                                                                label Name
+                                                                                                                                br   
+                                                                                                                                input(type="text" id="membername1" placeholder="name" maxsize="10" hight="5" style="width:150px;") 
+                                                                                                                            td.tblclass(align="center")
+                                                                                                                                label Email
+                                                                                                                                br    
+                                                                                                                                input(type="text" id="memberemail" placeholder="email" maxsize="15" hight="10" style="width:150px;")   
+                                                                                                                        tr(align="center")    
+                                                                                                                            td.tblclass(align="center") 
+                                                                                                                                label Bank Name
+                                                                                                                                br    
+                                                                                                                                input(type="text" id="bankname" placeholder="Bank Name" maxsize="15" hight="10" style="width:150px;")                     
+                                                                                                                            td.tblclass(align="center") 
+                                                                                                                                label IFSC Code
+                                                                                                                                br    
+                                                                                                                                input(type="text" id="ifsccode" placeholder="IFSC Code" maxsize="10" hight="5" style="width:150px;")                     
+                                                                                                                            td.tblclass(align="center") 
+                                                                                                                                label Bank Account No
+                                                                                                                                br    
+                                                                                                                                input(type="text" id="bankaccountno" placeholder="Bank Account No" maxsize="15" hight="10" style="width:150px;")                     
+                                                                                                                        tr(align="center")
+                                                                                                                            table(align="center")
+                                                                                                                                tr(align="center") 
+                                                                                                                                    td.tblclass(align="center") 
+                                                                                                                                        label Amount
+                                                                                                                                        br    
+                                                                                                                                        input(type="text" id="amount" placeholder="Amount" maxsize="15" hight="10" style="width:150px;") 
+                                                                                                                                    td(align="center" colspan='2')
+                                                                                                                                        label( colspan='2') Select Plan
+                                                                                                                                        br
+                                                                                                                                        select(id="showplan"  required style="width: 200px; height: 33px;")         
+                                                                                                                                    td
+                                                                                                                                        input(id='userid3' type="hiddenbox3" class="displaytd") 
+                                                                                                                    td
+                                                                                                                        table(align="center")
+                                                                                                                            tr     
+                                                                                                                                td(width='280px' height='80px' style='border: thin solid gray; border-radius: 3px; padding: 0px; margin:0px;' cellpadding='0' cellspacing='0')
+                                                                                                                                    table(cellpadding='0' cellspacing='0' style='padding: 0px; margin:0px;' id='showimgsearch') 
+                                                                                                                                        tr(cellpadding='0' cellspacing='0' style='padding: 0px; margin:0px;')
+                                                                                                                                            td(cellpadding='0' colspan='2' class='hideimg' cellspacing='0' width='380px' height='300px' style='border: thin solid gray; border-radius: 3px; padding: 0px; margin:0px;') 
+                                                                                                                                                div#imagepreview(width='280px' height='200px' )
+                                                                                                                                        tr 
+                                                                                                                                            //- td
+                                                                                                                                            //-     button(onclick='opencamera()') Click Photo 
+                                                                                                                                            td(cellpadding='0' cellspacing='0' style='padding: 0px; margin-right:0px;')
+                                                                                                                                                input(type='file' id='uploadselfie' required)
+                                                                                                                                                br
+                                                                                                                                                button.metal.linear(onclick='uploadprofilepic()') Upload            
+                                                                                            tr(align="center")
+                                                                                                br
+                                                                                                table(align="center")
+                                                                                                    tr(align="center")
+                                                                                                        td(align="center")
+                                                                                                            br
+                                                                                                            table(align="center") 
+                                                                                                                tr(align="center") 
+                                                                                                                    td(align="center")
+                                                                                                                        button(onclick="savemember();" ) Save 
+                                                                                                                    td(align="center")
+                                                                                                                        button(onclick="clearmanagememberpage();" ) Clear     
+                                                                                                                    td(align="center")
+                                                                                                                        button(onclick="payoutbutton();" ) PayOut 
+                                                                table(align="center")
+                                                                    tr(align="center")
+                                                                        td(align="center")
+                                                                            button(onclick="downloadmemberjoiningr();" id="downloadmemberjoiningr1")  Download
+                                                                
+                                                                table(align="center" style=' width: 80%; align-items: center; '  id="showreportonmember")
+                                                                    tr(align="center")
+                                                                        td(align="center" style="width: 80%;")
+                                                                            div#showmemberrepot                                                                      
+                            div.model12#payinfo 
+                                table(align="center" cellspacing="0" cellpadding="0")
+                                    tr(align="center")
+                                        td(align="center") 
+                                            <dialog id="favdialpay"  class="digclass" style='width: 600px; overflow: auto; height: 500px; position: fixed; top: 50%; left: 40%; transform: translate(-50%, -50%);'>
+                                                table 
+                                                    tr 
+                                                        td(class='tblbackcolor')
+                                                            table(align="center" cellspacing="0" cellpadding="0") 
+                                                                tr(align="center") 
+                                                                    td(align="center")
+                                                                        h1 PayOut 
+                                                                    td(class="fr1" style="vertical-align: top;") 
+                                                                        button(onclick="closepay();"   ) X
+                                                                tr(aligin="center")
+                                                                    div#payinformation
+                                                                        table.tblclass(align="center" cellspacing="0" cellpadding="0") 
+                                                                            tr.tblclass(align="center")  
+                                                                                td(align="center" )
+                                                                                    fieldset
+                                                                                        table(align="center" cellspacing="0" cellpadding="0")
+                                                                                            tr(align="center")
+                                                                                                td(align="center") 
+                                                                                                    label Total share 
+                                                                                                    br 
+                                                                                                    input(type="text" id="totalsharepay" placeholder="Amount" style="width:130px;")     
+                                                                                                td(align="center")
+                                                                                                    label Total PayOut 
+                                                                                                    br 
+                                                                                                    input(type="text" id="totalpay" placeholder="Amount" style="width:130px;" ) 
+                                                                                                td(align="center")
+                                                                                                    label Balance PayOut
+                                                                                                    br 
+                                                                                                    input(type="text" id="balancePay" placeholder="Amount" style="width:130px;")     
+                                                                                            tr(align="center" )
+                                                                                                td.tblclass
+                                                                                                    label PayOut Date 
+                                                                                                    br
+                                                                                                    input(type="date" id="paydata" placeholder='start date' required style="width:150px;")
+                                                                                                td(align="center")
+                                                                                                    label Pay Amount
+                                                                                                    br 
+                                                                                                    input(type="text" id="payamt" placeholder="Amount" style="width:150px;" )                 
+                                                                                            tr(align="center")
+                                                                                                td(align="center" colspan="4")
+                                                                                                    button(onclick="savereportpayout();" ) Save 
+                                                                            
+                                                                            tr(align="center")                                 
+                                                                                table(align="center") 
+                                                                                    tr(align="center")
+                                                                                        td 
+                                                                                            h4 PayOut Report 
+                                                                                    tr        
+                                                                                        td(id='showpayoutr')        
+                                                                                                                        
+                                                                                        
+                                            </dialog>    
+                                    
+                            div.model12#payuotinfo 
+                                table(align="center" cellspacing="0" cellpadding="0")
+                                    tr(align="center")
+                                        td(align="center") 
+                                            <dialog id="favdialpayout" class="digclass" style='width: 600px; overflow: auto; height: 500px; position: fixed; top: 50%; left: 40%; transform: translate(-50%, -50%);' >
+                                                table 
+                                                    tr 
+                                                        td(class='tblbackcolor')
+                                                            table(align="center" cellspacing="0" cellpadding="0") 
+                                                                tr(align="center") 
+                                                                    td(class="fr1" style="vertical-align: top;") 
+                                                                        button(onclick="closepayout();" ) X
+                                                                tr(aligin="center")
+                                                                    div#payoutinformation
+                                                                        table.tblclass(align="center" cellspacing="0" cellpadding="0") 
+                                                                            tr.tblclass(align="center")  
+                                                                                td(align="center")
+                                                                                    label Total share 
+                                                                                    br 
+                                                                                    input(type="text" id="totalshare" placeholder="Amount" style="width:130px;")     
+                                                                                td(align="center")
+                                                                                    label Total PayOut 
+                                                                                    br 
+                                                                                    input(type="text" id="totalpayout" placeholder="Amount" style="width:130px;" ) 
+                                                                                td(align="center")
+                                                                                    label Balance PayOut
+                                                                                    br 
+                                                                                    input(type="text" id="balancePayout" placeholder="Amount" style="width:130px;")     
+                                                                            tr(align="center" )
+                                                                                td.tblclass
+                                                                                    label PayOut Date 
+                                                                                    br
+                                                                                    input(type="date" id="payoutdate" placeholder='start date' required style="width:150px;")
+                                                                                td(align="center")
+                                                                                    label Pay Amount
+                                                                                    br 
+                                                                                    input(type="text" id="payamount" placeholder="Amount" style="width:150px;" )                 
+                                                                            tr(align="center")
+                                                                                td(align="center" colspan="4")
+                                                                                    button(onclick="savememberpayout();"  ) Save 
+                                                                            tr(align="center")
+                                                                                table(align="center") 
+                                                                                    tr(align="center")
+                                                                                        td(id='showpayoutreport')        
+                                                                                                                        
+                                                                                        
+                                            </dialog>    
+                                        
+                                                        
+    block script  
+    script(src="/static/js/mlm.js")
+    script(type="text/javascript" src='/static/js/login.js') 
+    script(type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js")
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
